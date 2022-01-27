@@ -14,6 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       Portofolio.belongsTo(models.User, {foreignKey: "UserId"})
       Portofolio.belongsTo(models.Stock, {foreignKey: "StockId"})
     }
+    
+    localeDate () {
+       const option = {weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'}
+      return new Date (this.createdAt).toLocaleDateString('en', option) 
+    }
+    
   }
   Portofolio.init({
     
@@ -59,7 +65,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     hooks: {
-      
+      beforeCreate: data => {
+        if (data.amount*data.priceBought > 10000) {
+          data.investmentType = 'High Risk'   
+        } else {
+          data.investmentType = 'Low Risk'
+        }
+      }
     },
     sequelize,
     modelName: 'Portofolio',

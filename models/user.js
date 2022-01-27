@@ -14,6 +14,29 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       User.hasMany(models.Portofolio, {foreignKey: "UserId"})
     }
+
+    localeDate () {
+      const option = {weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'}
+      return new Date (this.createdAt).toLocaleDateString('en', option) 
+    }
+
+    static countUser () {
+      return new Promise((resolve, reject) => {
+        User.findAll({
+          attributes: 
+            [
+              [sequelize.fn('COUNT', sequelize.col('id')), 'TotalUser'],
+              [sequelize.fn('MAX', sequelize.col('credit')), 'MaxCredit'],
+            ],
+        })
+          .then(data => {
+            resolve(data[0])
+          })
+          .catch(err => {
+            reject(err)
+          })
+        })
+      }
   }
   User.init({
     name: {
@@ -37,6 +60,9 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'email cannot be empty!'
+        },
+        isEmail: {
+          msg: `email must be in proper format!`
         }
       }
     },
@@ -45,15 +71,20 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'password cannot be empty!'
+        },
+        isAlphanumeric: {
+          msg: 'password may only be numbers and letters!'
         }
-      }
+      },
+      
     },
     credit: {
       type: DataTypes.INTEGER,
       validate: {
         notEmpty: {
           msg: 'credit cannot be empty!'
-        }
+        },
+        min: 1
       }
     },
     isAdmin: {
@@ -71,7 +102,20 @@ module.exports = (sequelize, DataTypes) => {
         const salt = bcrypt.genSaltSync(10)
         const hash = bcrypt.hashSync(data.password, salt)
         data.password = hash
+      },
+      beforeBulkUpdate: (instance, options) => {
+        console.log(instance, `DATA USER BEFORE UPDATE`);
+        // if (data.) {
+          
+        // }
       }
+    },
+    validate: {
+      minCredit(){
+        if (this.credit <= 0) {
+          throw new Error("Please Top Up your credits!") 
+        }
+      },
     },
     sequelize,
     modelName: 'User',

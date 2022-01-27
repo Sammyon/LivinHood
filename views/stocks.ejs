@@ -6,36 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<%- include('./partials/navbar') %>
 <body>
   </html>
   <hr>
   <h1>STOCK LIST</h1>
   <hr>
-  <form action="/stocks" name="search">
+  <form >
     <input type="search" name="search">
-    <input type="submit">
+    <input type="submit" value="Search">
   </form>
   <table border="1">
     <thead>
       <tr>
         <td>STOCK CODE</td>
         <td>Company</td>
-        <td>Price</td>
-        <td>Action</td>
+        
+        
+
       </tr>
     </thead>
     <tbody>
       <% data.forEach(e => { %>
         <tr>
-          <td><%= e.stockCode %></td>
+          <td><a href="/stocks/<%= e.id %>?stockCode=<%= e.stockCode %>"><%= e.stockCode %></a></td> 
           <td><%= e.Company.name %></td>
-          <td>PRICE</td>
-          <td>
-            <a href="/stocks/<%= e.id %>/buy">Buy Stock</a>
-          <% if (isAdmin) {%>
-            <a href="/stocks/<%= e.id %>/delete">Delete Stock</a>
-          <% } %>
-          </td>
+         
         </tr>
       <% }) %>
     </tbody>

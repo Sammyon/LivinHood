@@ -6,30 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>List Portfolio</title>
 </head>
-
+<%- include('./partials/navbar') %>
 <body>
   <h1>LIST PORTFOLIO</h1>
   <table border="1">
     <thead>
       <tr>
+        <th>No.</th>
         <th>Amount</th>
         <th>Investment Type</th>
         <th>Price Bought</th>
         <th>Stock Code</th>
+        <th>Date Bought</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      <% data.forEach(e => { %>
+      <% portfolioData.forEach((e, i) => { %>
         <% if (e.amount > 0) { %>
           <tr>
+            <td><%= i+1 %></td>
             <td><%= e.amount %></td>
             <td><%= e.investmentType %></td>
-            <td><%= e.priceBought %></td>
+            <td><%= currency(+e.priceBought) %></td>
             <td><a href="/companies/<%= e.Stock.id %>"></a><%= e.Stock.stockCode %></td>
+            <td> <%= e.localeDate() %> </td>
+
             <td>
-              <a href="/stocks/<%= e.Stock.id %>/buy">Buy</a>
-              <a href="/stocks/<%= e.Stock.id %>/sell">Sell</a>
+              <a href="/portfolio/<%= e.id %>?stockCode=<%= e.Stock.stockCode %>&priceBought=<%= e.priceBought %>">Detail </a>
             </td>
           </tr>
         <% } %>

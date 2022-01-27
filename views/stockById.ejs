@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock Details</title>
+</head>
+<%- include('./partials/navbar') %>
+<body>
+  <h1> <%= stockData.stockCode %></h1>
+  <h2> <%= stockData.Company.name %> </h2>
+  <h2>Price : <%= currency(currentPrice)  %> </h2>
+  <form action="/stocks/<%= stockData.id %>/buy?priceBought=<%= currentPrice %>" method="post">
+    <label for="amount"> Amount </label>
+    <input type="number" name="amount" id="">
+    <input type="submit" value="Buy">
+  </form>
+  
+</body>
+</html>

@@ -1,4 +1,6 @@
 'use strict';
+const stockPrice = require ('yahoo-stock-prices')
+const {Company} = require ('./index')
 const {
   Model
 } = require('sequelize');
@@ -11,9 +13,39 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      //! MASUKKAN BELONGS TO 3 KALI??
-       Stock.hasOne(models.Portofolio, {foreignKey: "StockId"})
+       Stock.hasMany(models.Portofolio, {foreignKey: "StockId"})
        Stock.belongsTo(models.Company, {foreignKey: "CompanyId"})
+    }
+
+    price() {
+      return new Promise ((resolve, reject) => {
+        stockPrice.getCurrentPrice(this.stockCode)
+          .then(data => {
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      }) 
+    }
+
+    static company (id) {
+      return new Promise((resolve, reject) => {
+        Stock.findOne({
+          include: {
+            model: Company
+          },
+          where: {
+            id: id
+          }
+        })
+          .then(data => {
+            resolve(data)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
     }
   }
   Stock.init({

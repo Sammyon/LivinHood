@@ -6,13 +6,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
 </head>
+<%- include('./partials/navbar') %>
 <body>
   </html>
   <hr>
   <h1>Profile</h1>
   <hr>
-  <p>Name : <%= ></p>
-  <p>Email : </p>
+  <p>Name : <%= data.name %></p>
+  <p>Email : <%= data.email %></p>
+  <p>Role : <%= (data.isAdmin) ? 'Admin' : 'User' %></p>
+  <p>Credit : <%= currency(data.credit) %></p>
+  <p>Bank Account Number : <%= data.bankAccountNumber %></p>
+  <p>Joined :<%=data.localeDate(data.createdAt) %></p>
 
+  <a href="/portfolio"><button>Your Invesments</button></a>
   
 </body>

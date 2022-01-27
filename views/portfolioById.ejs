@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Details</title>
+</head>
+<%- include('./partials/navbar') %>
+<body>
+    <h1> Portfolio Details</h1>
+  <h1> <%= stockData.stockCode %></h1>
+  <h2> Current Price : <%= currency(currentPrice) %> </h2>
+  <h2> Price Bought: <%= currency(stockData.priceBought) %></h2>
+  <h2> Overview : <%= currency(currentPrice - stockData.priceBought) %></h2>
+  <h2> Amount : <%= stockData.amount %></h2>
+  <h2> Total Sell Price : <%= currency(currentPrice * stockData.amount) %></h2>
+
+   <form action="/portfolio/<%=stockData.id%>/sell?currentPrice=<%=currentPrice%>" method="post">
+    <input type="submit" value="Sell">
+   </form>
+
+</body>
+</html>
