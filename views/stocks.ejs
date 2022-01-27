@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  </html>
+  <hr>
+  <h1>STOCK LIST</h1>
+  <hr>
+  <form action="/stocks" name="search">
+    <input type="search" name="search">
+    <input type="submit">
+  </form>
+  <table border="1">
+    <thead>
+      <tr>
+        <td>STOCK CODE</td>
+        <td>Company</td>
+        <td>Price</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(e => { %>
+        <tr>
+          <td><%= e.stockCode %></td>
+          <td><%= e.Company.name %></td>
+          <td>PRICE</td>
+          <td>
+            <a href="/stocks/<%= e.id %>/buy">Buy Stock</a>
+          <% if (isAdmin) {%>
+            <a href="/stocks/<%= e.id %>/delete">Delete Stock</a>
+          <% } %>
+          </td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>

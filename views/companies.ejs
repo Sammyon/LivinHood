@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <hr>
+  <h1>COMPANY LIST</h1>
+  <hr>
+  <form action="/companies" name="search">
+    <input type="search" name="search">
+    <input type="submit">
+  </form>
+  <table border="1">
+    <thead>
+      <tr>
+        <td>Company Name/STOCK CODE</td>
+        <td>Company Logo</td>
+        <td>Location</td>
+        <td>Email</td>
+        <td>Description</td>
+        <td>Action</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.forEach(e => { %>
+        <tr>
+          <td><%= e.name %></td>
+          <td><img src="<%= e.companyLogo %>" alt="<%= e.companyLogo %>"></td>
+          <td><%= e.location %></td>
+          <td><%= e.email %></td>
+          <td><%= e.description %></td>
+          <% if (isAdmin) {%>
+          <td>
+            <a href="/companies/<%= e.id %>/edit">Edit</a>
+            <a href="/companies/<%= e.id %>/delete">Delete</a>
+          </td>
+          <% } %>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</body>
+</html>

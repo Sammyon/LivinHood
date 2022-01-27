@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Anemone",
+        "email": "horten@mail.com",
+        "password": "anemone"
+       
+    }, {
+        "name": "Helia",
+        "email": "helia@mail.com",
+        "password": "helia"
+    }, {
+        "name": "Dandelia",
+        "email": "dandelia@mail.com",
+        "password": "dandelia"
+    }
+]

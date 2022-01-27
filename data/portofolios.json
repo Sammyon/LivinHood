@@ -1,0 +1,29 @@
+[
+    {
+       
+        
+        "amount": 300,
+        "investmentType": "Low Risk",
+        "priceBought": 300,
+        "UserId": 1,
+        "StockId": 1
+    },
+    {
+       
+        
+        "amount": 200,
+        "investmentType": "High Risk",
+        "priceBought": 100,
+        "UserId": 2,
+        "StockId": 2
+    },
+    {
+       
+        
+        "amount": 100,
+        "investmentType": "High Risk",
+        "priceBought": 150,
+        "UserId": 3,
+        "StockId": 3
+    }
+]
